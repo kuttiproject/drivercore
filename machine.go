@@ -5,8 +5,8 @@ type MachineStatus string
 
 // Machine Statuses
 const (
-	MachineStatusStopped = MachineStatus("stopped")
-	MachineStatusRunning = MachineStatus("running")
+	MachineStatusStopped = MachineStatus("Stopped")
+	MachineStatusRunning = MachineStatus("Running")
 )
 
 // PredefinedCommand provides commands that Machines can execute while running.
@@ -15,13 +15,14 @@ type PredefinedCommand string
 
 // Prefined Commands
 const (
-	RenameMachine     = PredefinedCommand("RenameMachine")
-	RestartMachine    = PredefinedCommand("RestartMachine")
-	CheckConnectivity = PredefinedCommand("CheckConnectivity")
-	SetProxy          = PredefinedCommand("SetProxy")
-	SetNoProxy        = PredefinedCommand("SetNoProxy")
-	InitCluster       = PredefinedCommand("InitCluster")
-	JoinCluster       = PredefinedCommand("JoinCluster")
+	RenameMachine         = PredefinedCommand("RenameMachine")
+	RestartMachine        = PredefinedCommand("RestartMachine")
+	CheckConnectivity     = PredefinedCommand("CheckConnectivity")
+	SetProxy              = PredefinedCommand("SetProxy")
+	SetNoProxy            = PredefinedCommand("SetNoProxy")
+	InitCluster           = PredefinedCommand("InitCluster")
+	JoinCluster           = PredefinedCommand("JoinCluster")
+	InstallOverlayNetwork = PredefinedCommand("InstallOverlayNetwork")
 )
 
 // Machine describes a node in a cluster.

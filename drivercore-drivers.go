@@ -11,7 +11,7 @@ func RegisteredDriver(name string) bool {
 	return ok
 }
 
-// RegisteredDrivers returns all valid driver names.
+// RegisteredDrivers returns all registered driver names.
 func RegisteredDrivers() []string {
 	result := make([]string, 0, len(drivers))
 	for i := range drivers {

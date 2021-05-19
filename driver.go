@@ -1,7 +1,7 @@
 package drivercore
 
 // Driver describes operations to manage Networks, Machines and Images.
-// The RequiresPortForwarding() method is particularly important. It is expected to
+// The UsesNATNetworking() method is particularly important. It is expected to
 // return true if the Networks of the driver use NAT. This means that ports of the
 // Machines will need to be forwarded to physical ports for access.
 // A driver is also responsible for maintaining a local cache of Images.
@@ -28,10 +28,8 @@ type Driver interface {
 	NewMachine(machinename string, clustername string, k8sversion string, imagetype string) (Machine, error)
 
 	UpateImageList() error
-	ValidImageType(imagetype string) bool
-	ValidImageTypes() []string
-	ValidVersion(k8sversion string) bool
-	ValidVersions() []string
+	ValidK8sVersion(k8sversion string) bool
+	K8sVersions() []string
 	ListImages() ([]Image, error)
-	GetImage(k8sversion string, imagetype string) (Image, error)
+	GetImage(k8sversion string) (Image, error)
 }
