@@ -7,6 +7,7 @@ type ImageStatus string
 const (
 	ImageStatusNotDownloaded = ImageStatus("notdownloaded")
 	ImageStatusDownloaded    = ImageStatus("downloaded")
+	ImageStatusUnknown       = ImageStatus("Unknown")
 )
 
 // Image describes a template from which Machines are created. Each kutti
