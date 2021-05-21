@@ -7,6 +7,8 @@ type MachineStatus string
 const (
 	MachineStatusStopped = MachineStatus("Stopped")
 	MachineStatusRunning = MachineStatus("Running")
+	MachineStatusUnknown = MachineStatus("Unknown")
+	MachineStatusError   = MachineStatus("Error")
 )
 
 // PredefinedCommand provides commands that Machines can execute while running.
@@ -36,6 +38,7 @@ const (
 type Machine interface {
 	Name() string
 	Status() MachineStatus
+	Error() string
 
 	IPAddress() string
 	SSHAddress() string
@@ -45,10 +48,10 @@ type Machine interface {
 	ForceStop() error
 	WaitForStateChange(timeoutinseconds int)
 
-	ForwardPort(hostport int, vmport int) error
-	UnforwardPort(vmport int) error
+	ForwardPort(hostport int, machineport int) error
+	UnforwardPort(machineport int) error
 	ForwardSSHPort(hostport int) error
 
 	ImplementsCommand(command PredefinedCommand) bool
-	ExecuteCommand(command PredefinedCommand) error
+	ExecuteCommand(command PredefinedCommand, params ...string) error
 }
