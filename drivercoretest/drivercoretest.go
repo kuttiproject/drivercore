@@ -26,7 +26,7 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 		t.FailNow()
 	}
 	// Test for UpateImageList
-	err := drv.UpateImageList()
+	err := drv.UpdateImageList()
 	if err != nil {
 		t.Logf("Driver '%v' could not update its image list.", drivername)
 		t.FailNow()

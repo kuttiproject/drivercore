@@ -27,7 +27,7 @@ type Driver interface {
 	DeleteMachine(machinename string, clustername string) error
 	NewMachine(machinename string, clustername string, k8sversion string) (Machine, error)
 
-	UpateImageList() error
+	UpdateImageList() error
 	ValidK8sVersion(k8sversion string) bool
 	K8sVersions() []string
 	ListImages() ([]Image, error)
