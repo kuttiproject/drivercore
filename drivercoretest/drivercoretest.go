@@ -28,13 +28,18 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 	// Test for UpateImageList
 	err := drv.UpdateImageList()
 	if err != nil {
-		t.Logf("Driver '%v' could not update its image list.", drivername)
+		t.Logf("Driver '%v' could not update its image list: %v.", drivername, err)
 		t.FailNow()
 	}
 
 	img, err := drv.GetImage(k8sversion)
 	if err != nil {
-		t.Logf("Driver '%v' could not get image for k8s version %v.", drivername, k8sversion)
+		t.Logf(
+			"Driver '%v' could not get image for k8s version %v: %v.",
+			drivername,
+			k8sversion,
+			err,
+		)
 		t.FailNow()
 	}
 
@@ -54,7 +59,10 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 	}
 
 	if img.Status() != drivercore.ImageStatusDownloaded {
-		t.Logf("Image.Status shows wrong result after apparently successful fetch.")
+		t.Logf(
+			"Image.Status shows wrong result after apparently successful fetch: %v.",
+			img.Status(),
+		)
 		t.FailNow()
 	}
 
