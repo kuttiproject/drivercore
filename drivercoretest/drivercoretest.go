@@ -66,25 +66,34 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 		t.FailNow()
 	}
 
+	t.Log("Attempting to create network for a cluster called 'zintakova'.")
 	nw, err := drv.NewNetwork("zintakova")
 	if err != nil {
 		t.Logf("Error in NewNetwork: %v\n", err)
 		t.FailNow()
 	}
 
-	if nw.Name() != "zintakova" {
-		t.Logf("Wrong name returned. Wanted zintakova, got %v, which should now be deleted manually.", nw.Name())
+	nwqname := drv.QualifiedNetworkName("zintakova")
+	if nw.Name() != nwqname {
+		t.Logf(
+			"Wrong name returned. Wanted %v, got %v, which should now be deleted manually.",
+			nwqname,
+			nw.Name(),
+		)
 		t.FailNow()
 	}
 
-	t.Log("CreateNetwork worked as expected. Calling again with same parameters...")
+	t.Log("NewNetwork worked as expected. Calling again with same parameters...")
 	_, err = drv.NewNetwork("zintakova")
 	if err == nil {
-		t.Log("The second call to CreateNetwork should have failed.")
+		t.Logf(
+			"The second call to NewNetwork should have failed. Remember to clean network called %v",
+			nwqname,
+		)
 		t.FailNow()
 	}
 
-	t.Logf("CreateNetwork second call errored as expected, with %v.", err)
+	t.Logf("NewNetwork second call errored as expected, with %v.", err)
 	t.Log("Now calling NewMachine...")
 	newnode, err := drv.NewMachine("champu", "zintakova", k8sversion)
 	if err != nil {
