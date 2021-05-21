@@ -4,6 +4,7 @@ package drivercoretest
 
 import (
 	"testing"
+	"time"
 
 	"github.com/kuttiproject/drivercore"
 )
@@ -103,8 +104,11 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 
 		t.Log(newnode)
 
-		t.Logf("NewMachine seems to have worked. Now starting the new host...")
-		//newnode.WaitForStateChange(20)
+		t.Logf("NewMachine seems to have worked. Now waiting up to 20 seconds.")
+		waitforstop := time.Now()
+		newnode.WaitForStateChange(20)
+		t.Logf("Waited %v. Now starting the new host...", time.Since(waitforstop))
+
 		err = newnode.Start()
 		if err != nil {
 			t.Logf("Host starting failed with error: %v.", err)
