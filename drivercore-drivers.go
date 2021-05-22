@@ -44,7 +44,7 @@ func GetDriver(name string) (Driver, bool) {
 	return result, ok
 }
 
-// RegisterDriver registers a Driver with a name to core.
+// RegisterDriver registers a Driver with a name to drivercore.
 // If a driver with the specified name already exists, it is replaced.
 // Driver names are converted to lower case.
 func RegisterDriver(name string, d Driver) {

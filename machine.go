@@ -30,7 +30,7 @@ const (
 // Machine describes a node in a cluster.
 // A machine, when created from an Image, is expected to have an operating
 // system and a container runtime already installed.
-// A machine can be started, stoppped normally and stopped forcibly.
+// A machine can be started, stopped normally and stopped forcibly.
 // If the Driver and the Network use NAT, then a Machine can also have its
 // ports forwarded to NAT router ports.
 // A machine provides a way to execute predefined commands within its guest

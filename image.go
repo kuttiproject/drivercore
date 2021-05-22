@@ -5,8 +5,8 @@ type ImageStatus string
 
 // Image Statuses
 const (
-	ImageStatusNotDownloaded = ImageStatus("notdownloaded")
-	ImageStatusDownloaded    = ImageStatus("downloaded")
+	ImageStatusNotDownloaded = ImageStatus("Notdownloaded")
+	ImageStatusDownloaded    = ImageStatus("Downloaded")
 	ImageStatusUnknown       = ImageStatus("Unknown")
 )
 
