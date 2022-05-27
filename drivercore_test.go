@@ -11,7 +11,7 @@ import (
 const TESTK8SVERSION = "1.22"
 
 func init() {
-	mockdriver1 := drivermock.New("mock1", "Mock driver with NAT Networking", true)
+	mockdriver1 := drivermock.New("mock1", "Mock driver with NAT Networking", true, true)
 	drivercore.RegisterDriver("mock1", mockdriver1)
 
 	mockdriver1.UpdateRemoteImage(TESTK8SVERSION, false)

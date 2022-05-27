@@ -15,12 +15,13 @@ var DefaultNetCIDR = "192.168.125.0/24"
 
 // Driver implements the drivercore.Driver interface
 type Driver struct {
-	driverName        string
-	driverDescription string
-	usesNATNetworking bool
-	errormessage      string
-	networkNameSuffix string
-	status            string
+	driverName               string
+	driverDescription        string
+	usesPerClusterNetworking bool
+	usesNATNetworking        bool
+	errormessage             string
+	networkNameSuffix        string
+	status                   string
 }
 
 // Name returns the driver name.
@@ -33,8 +34,14 @@ func (vd *Driver) Description() string {
 	return vd.driverDescription
 }
 
+// UsesPerClusterNetworking returns if this particular mock
+// driver instance uses per cluster networking
+func (vd *Driver) UsesPerClusterNetworking() bool {
+	return vd.usesPerClusterNetworking
+}
+
 // UsesNATNetworking returns if this particular mock
-// driver instance uses NAT Networking
+// driver instance uses NAT networking
 func (vd *Driver) UsesNATNetworking() bool {
 	return vd.usesNATNetworking
 }

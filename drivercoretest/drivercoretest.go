@@ -67,34 +67,37 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 		t.FailNow()
 	}
 
-	t.Log("Attempting to create network for a cluster called 'zintakova'.")
-	nw, err := drv.NewNetwork("zintakova")
-	if err != nil {
-		t.Logf("Error in NewNetwork: %v\n", err)
-		t.FailNow()
+	if drv.UsesPerClusterNetworking() {
+		t.Log("Attempting to create network for a cluster called 'zintakova'.")
+		nw, err := drv.NewNetwork("zintakova")
+		if err != nil {
+			t.Logf("Error in NewNetwork: %v\n", err)
+			t.FailNow()
+		}
+
+		nwqname := drv.QualifiedNetworkName("zintakova")
+		if nw.Name() != nwqname {
+			t.Logf(
+				"Wrong name returned. Wanted %v, got %v, which should now be deleted manually.",
+				nwqname,
+				nw.Name(),
+			)
+			t.FailNow()
+		}
+
+		t.Log("NewNetwork worked as expected. Calling again with same parameters...")
+		_, err = drv.NewNetwork("zintakova")
+		if err == nil {
+			t.Logf(
+				"The second call to NewNetwork should have failed. Remember to clean network called %v",
+				nwqname,
+			)
+			t.FailNow()
+		}
+
+		t.Logf("NewNetwork second call errored as expected, with %v.", err)
 	}
 
-	nwqname := drv.QualifiedNetworkName("zintakova")
-	if nw.Name() != nwqname {
-		t.Logf(
-			"Wrong name returned. Wanted %v, got %v, which should now be deleted manually.",
-			nwqname,
-			nw.Name(),
-		)
-		t.FailNow()
-	}
-
-	t.Log("NewNetwork worked as expected. Calling again with same parameters...")
-	_, err = drv.NewNetwork("zintakova")
-	if err == nil {
-		t.Logf(
-			"The second call to NewNetwork should have failed. Remember to clean network called %v",
-			nwqname,
-		)
-		t.FailNow()
-	}
-
-	t.Logf("NewNetwork second call errored as expected, with %v.", err)
 	t.Log("Now calling NewMachine...")
 	newnode, err := drv.NewMachine("champu", "zintakova", k8sversion)
 	if err != nil {
@@ -177,10 +180,14 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 		t.FailNow()
 	}
 
-	t.Log("DeleteMachine seems to have worked. Now calling DeleteNetwork...")
-	err = drv.DeleteNetwork("zintakova")
-	if err != nil {
-		t.Logf("Error from DeleteNetwork: %v\n", err)
-		t.FailNow()
+	t.Log("DeleteMachine seems to have worked.")
+
+	if drv.UsesPerClusterNetworking() {
+		t.Log("Now calling DeleteNetwork...")
+		err = drv.DeleteNetwork("zintakova")
+		if err != nil {
+			t.Logf("Error from DeleteNetwork: %v\n", err)
+			t.FailNow()
+		}
 	}
 }

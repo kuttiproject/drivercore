@@ -1,9 +1,11 @@
 package drivercore
 
 // Driver describes operations to manage Networks, Machines and Images.
-// The UsesNATNetworking() method is particularly important. It is expected to
-// return true if the Networks of the driver use NAT. This means that ports of the
-// Machines will need to be forwarded to physical ports for access.
+// The UsesPerClusterNetworking method returns true if the driver supports
+// creation of Networks per cluster.
+// The UsesNATNetworking() method returns true if the Networks of the driver
+// use NAT. This means that ports of the Machines will need to be forwarded
+// to physical host ports for host access.
 // A driver is also responsible for maintaining a local cache of Images.
 // It can update a list of published images from a driver-defined source,
 // download local copies of images, and delete local copies (but not the
@@ -11,6 +13,7 @@ package drivercore
 type Driver interface {
 	Name() string
 	Description() string
+	UsesPerClusterNetworking() bool
 	UsesNATNetworking() bool
 	Status() string
 	Error() string
