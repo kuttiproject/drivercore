@@ -1,6 +1,8 @@
 package drivercore
 
-import "strings"
+import (
+	"strings"
+)
 
 var drivers = map[string]Driver{}
 
@@ -29,8 +31,8 @@ func DriverCount() int {
 // The callback function can return false to stop the iteration.
 func ForEachDriver(f func(Driver) bool) {
 	for _, driver := range drivers {
-		cancel := f(driver)
-		if cancel {
+		ok := f(driver)
+		if !ok {
 			break
 		}
 	}
