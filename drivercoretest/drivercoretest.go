@@ -67,6 +67,37 @@ func TestDriver(t *testing.T, drivername string, k8sversion string) {
 		t.FailNow()
 	}
 
+	err = img.PurgeLocal()
+	if err != nil {
+		t.Logf("Image.PurgeLocal returned an error: %v", err)
+		t.Fail()
+	}
+
+	pfuncCalled := false
+	pfunc := func(current int64, total int64) {
+		t.Logf("downloading %v/%v bytes", current, total)
+		pfuncCalled = true
+	}
+
+	err = img.FetchWithProgress(pfunc)
+	if err != nil {
+		t.Logf("Image.Fetch returned an error: %v", err)
+		t.FailNow()
+	}
+
+	if img.Status() != drivercore.ImageStatusDownloaded {
+		t.Logf(
+			"Image.Status shows wrong result after apparently successful fetch: %v.",
+			img.Status(),
+		)
+		t.FailNow()
+	}
+
+	if !pfuncCalled {
+		t.Log("Progress function not called during Image.FetchWithProgress.")
+		t.FailNow()
+	}
+
 	if drv.UsesPerClusterNetworking() {
 		t.Log("Attempting to create network for a cluster called 'zintakova'.")
 		nw, err := drv.NewNetwork("zintakova")

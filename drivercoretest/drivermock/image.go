@@ -30,6 +30,15 @@ func (img *Image) Fetch() error {
 	return nil
 }
 
+// FetchWithProgress downloads the image from the driver repository into the
+// local cache, and reports progress via the supplied callback. The callback
+// reports current and total in bytes.
+func (img *Image) FetchWithProgress(progress func(int64, int64)) error {
+	progress(1000, 1000)
+	img.status = drivercore.ImageStatusDownloaded
+	return nil
+}
+
 // FromFile fetches an image from a file.
 func (img *Image) FromFile(filepath string) error {
 	return img.Fetch()

@@ -47,6 +47,6 @@
 //
 // This defines a template from which a Machine can be created. An image should have a
 // unique name, a Kubernetes version, and a checksum facility. A type property is also
-// provided for driver-specific image flavors, and future functionality
+// provided for driver-specific image flavors, and future functionality.
 //
 package drivercore
