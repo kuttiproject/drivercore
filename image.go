@@ -34,7 +34,7 @@ type Image interface {
 	// local cache, and reports progress via the supplied callback. The callback
 	// reports current and total in bytes.
 	FetchWithProgress(progress func(current int64, total int64)) error
-	// Fromfile imports the image from the local filesystem into the local cache.
+	// FromFile imports the image from the local filesystem into the local cache.
 	FromFile(filepath string) error
 	// PurgeLocal removes the image from the local cache.
 	PurgeLocal() error
