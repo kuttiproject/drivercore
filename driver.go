@@ -9,7 +9,7 @@ package drivercore
 // A driver is also responsible for maintaining a local cache of Images.
 // It can update a list of published images from a driver-defined source,
 // download local copies of images, and delete local copies (but not the
-// image itself).
+// image list itself).
 type Driver interface {
 	// Name returns the unique name for a Driver. It should be short.
 	Name() string
@@ -28,8 +28,6 @@ type Driver interface {
 
 	// QualifiedNetworkName returns a unique Network name for a cluster.
 	QualifiedNetworkName(clustername string) string
-	ListNetworks() ([]Network, error)
-	GetNetwork(clustername string) (Network, error)
 	// DeleteNetwork deletes the Network for a cluster.
 	DeleteNetwork(clustername string) error
 	// NewNetwork creates a new Network for a cluster.
@@ -38,7 +36,6 @@ type Driver interface {
 	// QualifiedMachineName returns a unique name for a Machine in a cluster.
 	// This name is usually used internally by a Driver.
 	QualifiedMachineName(machinename string, clustername string) string
-	ListMachines() ([]Machine, error)
 	// GetMachine returns a Machine in a cluster.
 	GetMachine(machinename string, clustername string) (Machine, error)
 	// DeleteMachine deletes a Machine in a cluster.

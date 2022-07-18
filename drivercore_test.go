@@ -35,7 +35,7 @@ func TestDriverCore(t *testing.T) {
 		return true
 	})
 
-	ok := drivercore.RegisteredDriver("mock1")
+	ok := drivercore.IsRegisteredDriver("mock1")
 	if !ok {
 		t.Fatal("Driver mock1 not registered")
 	}

@@ -1,6 +1,6 @@
 package drivercore
 
-// MachineStatus can be either stopped or running
+// MachineStatus can be either Stopped, Running, Unknown or Error.
 type MachineStatus string
 
 // Machine Statuses

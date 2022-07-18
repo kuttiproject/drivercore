@@ -6,9 +6,9 @@ import (
 
 var drivers = map[string]Driver{}
 
-// RegisteredDriver checks if a driver name is registered. The name
+// IsRegisteredDriver checks if a driver name is registered. The name
 // check is case-insensitive.
-func RegisteredDriver(name string) bool {
+func IsRegisteredDriver(name string) bool {
 	_, ok := drivers[strings.ToLower(name)]
 	return ok
 }

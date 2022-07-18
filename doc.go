@@ -43,10 +43,12 @@
 //
 // - JoinCluster
 //
+// - InstallOverlayNetwork
+//
 // Image
 //
-// This defines a template from which a Machine can be created. An image should have a
-// unique name, a Kubernetes version, and a checksum facility. A type property is also
-// provided for driver-specific image flavors, and future functionality.
-//
+// This defines a template from which a Machine can be created. An image has a property
+// called K8sVersion , which specifies the version of kubernetes binaries present in
+// Machines created from it. Drivers should include the functionality to download Images
+// from driver-defined repositories, and check their integrity.
 package drivercore
